@@ -1,4 +1,4 @@
-module github.com/pkg/profile
+module 	github.com/CASP-Systems-BU/multi-profile
 
 go 1.13
 
