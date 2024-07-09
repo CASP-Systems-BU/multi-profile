@@ -145,11 +145,7 @@ func (p *Profile) Stop() {
 		return
 	}
 	p.closer()
-	atomic.StoreUint32(&started, 0)
 }
-
-// started is non zero if a profile is running.
-var started uint32
 
 // Start starts a new profiling session.
 // The caller should call the Stop method on the value returned
@@ -157,10 +153,6 @@ var started uint32
 func Start(options ...func(*Profile)) interface {
 	Stop()
 } {
-	if !atomic.CompareAndSwapUint32(&started, 0, 1) {
-		log.Fatal("profile: Start() already called")
-	}
-
 	var prof Profile
 	for _, option := range options {
 		option(&prof)
